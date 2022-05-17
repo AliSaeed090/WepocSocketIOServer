@@ -7,6 +7,19 @@ var open = require('open');
 const router = express.Router();
 const { v4: uuidv4 } = require('uuid');
 const apn = require('apn');
+const admin = require("firebase-admin");
+var serviceAccount = require('./wepoc-446d9-firebase-adminsdk-flhzi-2aa00339a8.json');
+var bodyParser = require('body-parser')
+// create application/json parser
+var jsonParser = bodyParser.json()
+ 
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  name: 'wepoc'
+  // databaseURL: 'https://chat-app-d8550.firebaseio.com',
+});
 const config = {
   production: true, /* change this when in production */
   // cert: topic ? (topic+'.pem') : 'voipCert.pem',
@@ -53,15 +66,16 @@ app.get('/draw', function (req, res) {
 server.listen(serverPort, function () {
   console.log('Rewebrtc-server is up and running at %s port', serverPort);
   if (isLocal) {
-    open('https://localhost:' + serverPort)
+    // open('https://localhost:' + serverPort)
   }
 });
 
 
-app.post("/PushNotification", (request, response) => {
+app.post("/PushNotification", jsonParser, (request, response) => {
+  console.log({request:request.body})
   //code to perform particular action.
   //To access POST variable use req.body()methods.
-  const admin = require("firebase-admin");
+
   const firestore = admin.firestore();
   let participants = request.body.data.participants;
   var options = {
@@ -87,6 +101,7 @@ app.post("/PushNotification", (request, response) => {
 
     data: {
       participants: JSON.stringify(participants),
+      allParticipants:JSON.stringify(request.body.data.allParticipants),
       sender: request.body.data.sender,
       callRoomID: request.body.data.callRoomID,
       roomTitle: request.body.data.roomTitle,
