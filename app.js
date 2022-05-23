@@ -114,6 +114,7 @@ app.post("/PushNotification", jsonParser, (request, response) => {
     },
   };
 
+  console.log({participants, length:participants.length})
   Promise.all(participants)
     .then(async () => {
       for (const eachUserUid of participants) {
