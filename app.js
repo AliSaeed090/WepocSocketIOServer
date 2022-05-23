@@ -128,7 +128,7 @@ app.post("/PushNotification", jsonParser, (request, response) => {
               .sendToDevice(token, payload, options)
               .then(function (res) {
                 console.log('Succesfully sent message Group', request.body.title + "to " + user.data().userName, { token });
-                return token
+               
               })
               .catch(function (error) {
                 // response.json(error)
