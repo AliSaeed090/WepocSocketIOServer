@@ -177,57 +177,7 @@ app.post("/PushNotification", jsonParser, (request, response) => {
               .sendToDevice(token, payload, options)
               .then(function (res) {
                 console.log('Succesfully sent message Group', request.body.title + "to " + user.data().userName, { token, res:JSON.stringify(res)});
-                if (user.data().pushKitIosToken) {
-                  if (request.body.title === "Incomming Call") {
-                    user.data().pushKitIosToken.forEach(async (token) => {
-        
-                      if (token.length > 0) {
-                        // sendpushKitIosCallNotification(token, request.body.data)
-                        let data = request.body.data
-                        const payload = {
-                          callerName: "Wepoc",
-                          // handle: recipient.email || recipient.phone || recipient.phoneNumber,
-                          handle: "wepoc",
-                          callRoomID: data.callRoomID,
-                          uuid: uuidv4(),
-                          chatType: data.callType,
-                          roomTitle: data.roomTitle,
-                          roomImage: data.roomImage,
-        
-                        };
-        
-        
-        
-                        const notification = new apn.Notification({
-                          aps: {
-                            "content-available": 1,
-                            "content-available": true
-                          }
-                        });
-        
-                        const recepients = [];
-                        recepients.push(apn.token(token));
-        
-                        // notification.topic = topic ? topic + '.voip' : 'io.instamobile.chat.swift.voip'; // you have to add the .voip suffix here!!
-                        notification.topic = "com.chat.wepoc.voip"
-                        notification.payload = payload;
-        
-        
-        
-                        apnProvider.send(notification, recepients).then((reponse) => {
-                          // console.log("Send push notifications to " + token + " topic: ", "payload", payload);
-                          console.log({ pushKitIosCallNotification: JSON.stringify(notification) });
-        
-        
-        
-                        });
-        
-        
-                      }
-        
-                    })
-                  }
-                }
+            
 
               })
               .catch(function (error) {
@@ -237,6 +187,57 @@ app.post("/PushNotification", jsonParser, (request, response) => {
 
 
           })
+          if (user.data().pushKitIosToken) {
+            if (request.body.title === "Incomming Call") {
+              user.data().pushKitIosToken.forEach(async (token) => {
+  
+                if (token.length > 0) {
+                  // sendpushKitIosCallNotification(token, request.body.data)
+                  let data = request.body.data
+                  const payload = {
+                    callerName: "Wepoc",
+                    // handle: recipient.email || recipient.phone || recipient.phoneNumber,
+                    handle: "wepoc",
+                    callRoomID: data.callRoomID,
+                    uuid: uuidv4(),
+                    chatType: data.callType,
+                    roomTitle: data.roomTitle,
+                    roomImage: data.roomImage,
+  
+                  };
+  
+  
+  
+                  const notification = new apn.Notification({
+                    aps: {
+                      "content-available": 1,
+                      "content-available": true
+                    }
+                  });
+  
+                  const recepients = [];
+                  recepients.push(apn.token(token));
+  
+                  // notification.topic = topic ? topic + '.voip' : 'io.instamobile.chat.swift.voip'; // you have to add the .voip suffix here!!
+                  notification.topic = "com.chat.wepoc.voip"
+                  notification.payload = payload;
+  
+  
+  
+                  apnProvider.send(notification, recepients).then((reponse) => {
+                    // console.log("Send push notifications to " + token + " topic: ", "payload", payload);
+                    console.log({ pushKitIosCallNotification: JSON.stringify(notification) });
+  
+  
+  
+                  });
+  
+  
+                }
+  
+              })
+            }
+          }
         }
 
   
