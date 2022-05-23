@@ -21,7 +21,7 @@ admin.initializeApp({
   // databaseURL: 'https://chat-app-d8550.firebaseio.com',
 });
 const config = {
-  production: true, /* change this when in production */
+  production: false, /* change this when in production */
   // cert: topic ? (topic+'.pem') : 'voipCert.pem',
   // key: topic ? (topic+'.pem') : 'voipCert.pem',
 
