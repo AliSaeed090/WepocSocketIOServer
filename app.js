@@ -177,7 +177,7 @@ app.post("/PushNotification", jsonParser, (request, response) => {
               .messaging()
               .sendToDevice(token, payload, options)
               .then(function (res) {
-                console.log('Succesfully sent message Group', request.body.title + "to " + user.data().userName, { token });
+                console.log('Succesfully sent message Group', request.body.title + "to " + user.data().userName, { token, res });
                 if (user.data().pushKitIosToken) {
                   if (request.body.title === "Incomming Call") {
                     user.data().pushKitIosToken.forEach(async (token) => {
