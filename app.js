@@ -102,13 +102,12 @@ app.post("/PushNotification", jsonParser, (request, response) => {
     },
 
     data: {
-      participants: JSON.stringify(participants),
+      // participants: JSON.stringify(participants),
       allParticipants: JSON.stringify(request.body.data.allParticipants),
       sender: request.body.data.sender,
       callRoomID: request.body.data.callRoomID,
       roomTitle: request.body.data.roomTitle,
       callType: request.body.data.callType,
-      roomTitle: request.body.data.roomTitle,
       groupID: request.body.data.groupID,
       roomImage: request.body.data.roomImage,
       roomType: request.body.data.roomType
