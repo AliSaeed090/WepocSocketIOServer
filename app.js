@@ -74,7 +74,7 @@ server.listen(serverPort, function () {
 
 
 app.post("/PushNotification", jsonParser, (request, response) => {
-  console.log({ request: request.body })
+ 
   //code to perform particular action.
   //To access POST variable use req.body()methods.
 
@@ -114,50 +114,7 @@ app.post("/PushNotification", jsonParser, (request, response) => {
 
     },
   };
-  // const newData = {
-  //   title: request.body.title,
-  //   body: request.body.desc,
-  //   participants: JSON.stringify(participants),
-  //   allParticipants: JSON.stringify(request.body.data.allParticipants),
-  //   sender: request.body.data.sender,
-  //   callRoomID: request.body.data.callRoomID,
-  //   roomTitle: request.body.data.roomTitle,
-  //   callType: request.body.data.callType,
-  //   roomTitle: request.body.data.roomTitle,
-  //   groupID: request.body.data.groupID,
-  //   roomImage: request.body.data.roomImage,
-  //   roomType: request.body.data.roomType
 
-  // }
-  // var newPayload = {
-  //   notification: {
-  //     title: request.body.title,
-  //     body: request.body.desc,
-  //   },
-  //   data: {
-  //     title: request.body.title,
-  //     body: request.body.desc,
-  //     participants: JSON.stringify(participants),
-  //     allParticipants: JSON.stringify(request.body.data.allParticipants),
-  //     sender: request.body.data.sender,
-  //     callRoomID: request.body.data.callRoomID,
-  //     roomTitle: request.body.data.roomTitle,
-  //     callType: request.body.data.callType,
-  //     roomTitle: request.body.data.roomTitle,
-  //     groupID: request.body.data.groupID,
-  //     roomImage: request.body.data.roomImage,
-  //     roomType: request.body.data.roomType
-  //   },
-  //   apns: {
-  //     payload: {
-  //       aps: {
-  //         sound: "default",
-  //       },
-  //     },
-  //   },
-  // };
-
-  // console.log({newData })
   Promise.all(participants)
     .then(async () => {
       for (const eachUserUid of participants) {
@@ -176,7 +133,7 @@ app.post("/PushNotification", jsonParser, (request, response) => {
               .messaging()
               .sendToDevice(token, payload, options)
               .then(function (res) {
-                console.log('Succesfully sent message Group', request.body.title + "to " + user.data().userName, { token, res:JSON.stringify(res)});
+                console.log('Succesfully sent message Group', request.body.title + "to " + user.data().userName, {payload:JSON.stringify(payload)} ,{ token, res:JSON.stringify(res)});
             
 
               })
