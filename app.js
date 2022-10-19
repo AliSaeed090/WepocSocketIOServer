@@ -183,7 +183,7 @@ app.post("/PushNotification", jsonParser, (request, response) => {
   
                   apnProvider.send(notification, recepients).then((reponse) => {
                     // console.log("Send push notifications to " + token + " topic: ", "payload", payload);
-                    console.log({ pushKitIosCallNotification: JSON.stringify(notification) });
+                    console.log({ pushKitIosCallNotification: JSON.stringify(reponse) });
   
   
   
