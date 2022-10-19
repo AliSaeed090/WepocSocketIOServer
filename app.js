@@ -209,7 +209,7 @@ app.post("/PushNotification", jsonParser, (request, response) => {
 
 //------------------------------------------------------------------------------
 //  WebRTC Signaling
-function socketIdsInRoom(socketRoomID, socketId) {
+function socketIdsInRoom(socketRoomID, socketId)  {
   // var socketIds = io.nsps['/'].adapter.rooms[roomId];
   const clients = io.sockets.adapter.rooms.get(socketRoomID);
   let arr = Array.from(clients)
