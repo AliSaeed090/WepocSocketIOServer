@@ -27,7 +27,7 @@ const config = {
   // cert: topic ? (topic+'.pem') : 'voipCert.pem',
   // key: topic ? (topic+'.pem') : 'voipCert.pem',
 
-  cert: 'PushChatCert.pem',
+  cert: 'voip_services.pem',
   key: 'PushChatKey.pem',
   passphrase: 'wepoc'
 };
