@@ -187,6 +187,8 @@ app.post("/PushNotification", jsonParser, (request, response) => {
   
   
   
+                  }).catch((err)=>{
+                    console.log({err:JSON.stringify(err)})
                   });
   
   
